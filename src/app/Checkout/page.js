@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { CartContext } from '../context/CartContext';
 
 
-const page = () => {
+const Page = () => {
     const { cartData } = useContext(CartContext);
     return (
         <>
@@ -47,7 +47,7 @@ const page = () => {
                         <div className="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
                             {
                                 cartData.map(item => (
-                                    <div className="flex flex-col rounded-lg bg-white sm:flex-row">
+                                    <div className="flex flex-col rounded-lg bg-white sm:flex-row" key={item._id}>
                                         <Image width={40} height={40} className="m-2 h-24 w-28 rounded-md border object-cover object-center" src={item.product_Img} alt="" />
                                         <div className="flex w-full flex-col px-4 py-4">
                                             <span className="font-semibold">{item.product_name}</span>
@@ -163,4 +163,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

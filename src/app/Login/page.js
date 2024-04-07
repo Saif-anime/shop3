@@ -54,10 +54,10 @@ const Page = ({ params }) => {
 
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
+          <Image
             className="mx-auto h-10 w-auto"
             src="logo.png"
-            alt="Your Company"
+            alt="Your Company" width={100} height={100}
           />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Sign in to your account
@@ -118,7 +118,7 @@ const Page = ({ params }) => {
           <p className="mt-10 text-center text-sm text-gray-500">
  
             <a href="/SignOut" className="font-semibold leading-6 text-red-600 hover:text-red-500">
-              Don't Have Account ? 
+              Dont Have Account ? 
             </a>
           </p>
         </div>

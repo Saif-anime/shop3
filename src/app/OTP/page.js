@@ -1,6 +1,7 @@
 "use client";
 import React, { useCallback, useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import Image from "next/image";
 
 function HomeContent() {
   const searchParams = useSearchParams();
@@ -17,45 +18,7 @@ function HomeContent() {
     phEmailJwt: "",
   });
 
-  const httpRequest = async () => {
-    try {
-      const url = "https://eapi.phone.email/getuser";
-      const data = new FormData();
 
-      data.append("access_token", accessToken);
-      data.append("client_id", CLIENT_ID);
-
-      const response = await fetch(url, { method: "POST", body: data });
-      const datauser = await fetch(`${process.env.API_FETCH_URL}/Admin/User`, {method:"POST", body:data})      
-
-      if (!response.ok && !datauser) {
-        throw new Error("Network response was not ok");
-      }
-
-      const responseData = await response.json();
-      const responseDataUser = await datauser.json();
-
-      if (responseData.status !== 200) {
-        throw new Error("Something went wrong");
-      }
-
-      const phEmailJwt = responseData.ph_email_jwt;
-
-      setUserDetails({
-        countryCode: responseData.country_code,
-        phoneNo: responseData.phone_no,
-        phEmailJwt: phEmailJwt,
-      });
-
-      // Set cookie with 1-day expiration
-      const cookieExpire = new Date(
-        Date.now() + 1 * 24 * 60 * 60 * 1000
-      ).toUTCString();
-      document.cookie = `ph_email_jwt=${phEmailJwt}; expires=${cookieExpire}; path=/`;
-    } catch (error) {
-      console.error("Fetch error:", error);
-    }
-  };
 
   const openLoginWindow = useCallback(() => {
     const top = (window.screen.height - 600) / 2;
@@ -70,6 +33,45 @@ function HomeContent() {
 
   useEffect(() => {
     if (accessToken) {
+      const httpRequest = async () => {
+        try {
+          const url = "https://eapi.phone.email/getuser";
+          const data = new FormData();
+    
+          data.append("access_token", accessToken);
+          data.append("client_id", CLIENT_ID);
+    
+          const response = await fetch(url, { method: "POST", body: data });
+          const datauser = await fetch(`${process.env.API_FETCH_URL}/Admin/User`, {method:"POST", body:data})      
+    
+          if (!response.ok && !datauser) {
+            throw new Error("Network response was not ok");
+          }
+    
+          const responseData = await response.json();
+          const responseDataUser = await datauser.json();
+    
+          if (responseData.status !== 200) {
+            throw new Error("Something went wrong");
+          }
+    
+          const phEmailJwt = responseData.ph_email_jwt;
+    
+          setUserDetails({
+            countryCode: responseData.country_code,
+            phoneNo: responseData.phone_no,
+            phEmailJwt: phEmailJwt,
+          });
+    
+          // Set cookie with 1-day expiration
+          const cookieExpire = new Date(
+            Date.now() + 1 * 24 * 60 * 60 * 1000
+          ).toUTCString();
+          document.cookie = `ph_email_jwt=${phEmailJwt}; expires=${cookieExpire}; path=/`;
+        } catch (error) {
+          console.error("Fetch error:", error);
+        }
+      };
       httpRequest();
     }
   }, [accessToken]);
@@ -105,9 +107,9 @@ function HomeContent() {
               justifyContent: "center",
             }}
           >
-            <img
+            <Image
               className="phe-login-img"
-              width="250px"
+              width={250}
               src="https://storage.googleapis.com/prod-phoneemail-prof-images/phem-widgets/phe-signin-box.svg"
               alt="phone email login demo"
             />
@@ -134,11 +136,11 @@ function HomeContent() {
               type="button"
               onClick={openLoginWindow}
             >
-              <img
+              {/* <img
                 src="https://storage.googleapis.com/prod-phoneemail-prof-images/phem-widgets/phem-phone.svg"
                 alt="phone email"
                 style={{ marginRight: "10px" }}
-              />
+              /> */}
               Sign In with Phone
             </button>
           </div>
@@ -174,12 +176,12 @@ function HomeContent() {
               justifyContent: "center",
             }}
           >
-            <img
+            {/* <img
               className="phe-login-img"
               width="250px"
               src="https://storage.googleapis.com/prod-phoneemail-prof-images/phem-widgets/phe-signin-success.svg"
               alt="phone email login demo"
-            />
+            /> */}
             <div className="phem-card-body">
               <h1>Welcome!</h1>
               <h4 style={{ lineHeight: "36px" }}>
