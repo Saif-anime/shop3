@@ -63,7 +63,7 @@ const CustomCarousel = () => {
           Data.map(item => (
             <SwiperSlide key={item._id}>
               <div className='w-full h-96'>
-                <Image  width={100} height={100}  className="object-fill w-full h-full rounded-t-lg pb-8" src={item.BannerImg} alt="product image" />
+                <Image  fill  className="object-fill w-full h-full rounded-t-lg pb-8" src={item.BannerImg} alt="product image" />
               </div>
             </SwiperSlide>
 

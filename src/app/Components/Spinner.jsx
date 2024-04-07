@@ -1,11 +1,13 @@
-import React from 'react'
+import React from 'react';
+import Image from 'next/image';
 
 const Spinner = () => {
     return (
         <>
            
-                <div
-                    class="h-2 border-4 border-red-900 w-full" ></div>
+               
+                <Image className='animate-spin' src="/spinn.png"  height={"100"} width={"100"} alt='logo'/>
+             
           
         </>
     )

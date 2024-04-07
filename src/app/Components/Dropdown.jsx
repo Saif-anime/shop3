@@ -56,4 +56,4 @@ const Dropdown = ({ title, items }) => {
     )
 }
 
-export default Dropdown
+export default Dropdown;

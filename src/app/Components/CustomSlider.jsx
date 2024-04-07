@@ -11,8 +11,9 @@ import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import Card from './Card';
 
-const CustomSlider = ({addToCart}) => {
+const CustomSlider = ({addToCart, cateid}) => {
     const [Data, setData] = useState([]);
+    const [subCateData, setsubCateData] = useState([]);
 
 
   
@@ -28,8 +29,11 @@ const CustomSlider = ({addToCart}) => {
     const fetchData = async () => {
       try {
         const response = await fetch(`${process.env.API_FETCH_URL}/Admin/product`);
-        if (response.ok) {
+        const sub_response = await fetch(`${process.env.API_FETCH_URL}/Admin/subcategory`);
+        if (response.ok && sub_response.ok) {
           const jsonData = await response.json();
+          const jsonSubData = await sub_response.json();
+          setsubCateData(jsonSubData);
           setData(jsonData);
         } else {
           console.error('Failed to fetch data')
@@ -42,7 +46,15 @@ const CustomSlider = ({addToCart}) => {
   
 
 
+    // Filter products based on category and subcategory
+    const filteredsubcategory = subCateData.filter(item => {
+      return item.category === cateid;
+  });
 
+
+  const filterproducts = Data.filter(item => {
+    return filteredsubcategory.some(subcategory => subcategory._id === item.product_category);
+  })
 
 
 
@@ -92,13 +104,17 @@ const CustomSlider = ({addToCart}) => {
                 
 
         {
-          Data.map(item => (
+
+        filterproducts.map(item => (
             <SwiperSlide key={item._id}>
-                <Card   product={item} addToCart={addToCart}/>
+                <Card   product={item} />
             </SwiperSlide>
 
 
           ))
+
+
+
         }
 
                

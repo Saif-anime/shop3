@@ -1,35 +1,11 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 import AdminNavbar from '../../Components/AdminNavbar';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import { TextField, Stack } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import MenuItem from '@mui/material/MenuItem';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
-import FormControl from '@mui/material/FormControl';
-import Image from 'next/image';
-import Link from 'next/link';
-import DeleteIcon from '@mui/icons-material/Delete';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import Sidebar from '../../Components/Sidebar';
 
 
-const VisuallyHiddenInput = styled('input')({
-  clip: 'rect(0 0 0 0)',
-  clipPath: 'inset(50%)',
-  height: 1,
-  overflow: 'hidden',
-  position: 'absolute',
-  bottom: 0,
-  left: 0,
-  whiteSpace: 'nowrap',
-  width: 1,
-});
+
+
 
 
 
@@ -41,17 +17,17 @@ const Page = () => {
 
   const [selectedFile, setSeletedFile] = useState(null);
   const [FormProductData, setFormProductData] = useState({
-    product_name:"",
-    price:"",
-    gender:"",
-    category:"",
-    product_desc:"",
-    color:"",
-    quantity:"",
-    size:""
+    product_name: "",
+    price: "",
+    gender: "",
+    category: "",
+    product_desc: "",
+    color: "",
+    quantity: "",
+    size: ""
 
   });
- 
+
   const handleChange = (e) => {
     setFormProductData({ ...FormProductData, [e.target.name]: e.target.value });
     console.log("hel")
@@ -142,7 +118,7 @@ const Page = () => {
   // };
   console.log(Data)
 
-  const handleFileChange = (event) => { 
+  const handleFileChange = (event) => {
     setSeletedFile(event.target.files[0]);
 
   };
@@ -177,247 +153,126 @@ const Page = () => {
   return (
     <>
 
-      <div className='container'>
-        <div className='mb-2'>
+
+      <div className='container w-full'>
+        <div
+          id="view"
+          class="h-full shadow flex flex-row"
+          x-data="{ sidenav: true }"
+        >
+          <button
+            // @click="sidenav = true"
+            class="p-2 border-2 bg-white rounded-md border-gray-200 shadow-lg text-gray-500 focus:bg-teal-500 focus:outline-none focus:text-white absolute top-0 left-0 sm:hidden"
+          >
+            <svg
+              class="w-5 h-5 fill-current"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </button>
+
+
 
           <AdminNavbar />
-        </div>
 
+          <div>
+            {/* <Sidebar/> */}
 
+            {/* <!-- component --> */}
+            <div class="min-h-screen p-6 bg-gray-200 flex items-center justify-center">
+              <div class="container max-w-screen-lg mx-auto">
+                <div>
+                  <h2 class="font-semibold text-xl mb-6 text-gray-600">Add Product Form</h2>
+                
+                  <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+                    <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+                      <div class="text-gray-600">
+                        <p class="font-medium text-lg">Product Details</p>
+                        <p>Please fill out all the fields.</p>
+                      </div>
 
-        {/* body here  */}
-        <div className='px-20 py-5'>
-          {/* modal here  */}
-          <div className='container'>
+                      <div class="lg:col-span-2">
+                        <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+                          <div class="md:col-span-5">
+                            <label for="full_name">Full Name</label>
+                            <input type="text" name="full_name" id="full_name" class="h-10 border-2 border-red-500 mt-1 rounded px-4 w-full bg-gray-50" value="" />
+                          </div>
 
-            <Button variant="contained" style={{ backgroundColor: "#1565c0" }} onClick={handleClickOpen}>
-              Add Product
-            </Button>
+                          <div class="md:col-span-5">
+                            <label for="email">Email Address</label>
+                            <input type="text" name="email" id="email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="email@domain.com" />
+                          </div>
 
-            {/* add here  */}
-            <Dialog
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description"
-            >
-              <DialogTitle id="alert-dialog-title">
-                {"Product Add Form"}
-              </DialogTitle>
-              <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                  <form onSubmit={handleSubmit} method='post'>
-                    <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
-                      <TextField
-                        type="text"
-                        variant='outlined'
-                        name='product_name'
-                        value={FormProductData.product_name}
-                        onChange={handleChange}
+                          <div class="md:col-span-3">
+                            <label for="address">Address / Street</label>
+                            <input type="text" name="address" id="address" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
+                          </div>
+
+                          <div class="md:col-span-2">
+                            <label for="city">City</label>
+                            <input type="text" name="city" id="city" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
+                          </div>
+
+                    
+
+                          <div class="md:col-span-2">
+                            <label for="state">State / province</label>
+                            <div class="h-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
+                              <input name="state" id="state" placeholder="State" class="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent" value="" />
+                              <button tabindex="-1" class="cursor-pointer outline-none focus:outline-none transition-all text-gray-300 hover:text-red-600">
+                                <svg class="w-4 h-4 mx-2 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                              </button>
+                              <button tabindex="-1" for="show_more" class="cursor-pointer outline-none focus:outline-none border-l border-gray-200 transition-all text-gray-300 hover:text-blue-600">
+                                <svg class="w-4 h-4 mx-2 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                              </button>
+                            </div>
+                          </div>
+
+                          <div class="md:col-span-1">
+                            <label for="zipcode">Zipcode</label>
+                            <input type="text" name="zipcode" id="zipcode" class="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="" value="" />
+                          </div>
+
                         
-                        label="Product Name"
-
-                        fullWidth
-                        required
-                      />
-                      <TextField
-                        type="number"
-                        variant='outlined'
-                        onChange={handleChange}
-                        name='price'
-                        value={FormProductData.price}
-                        label="Price"
-                        fullWidth
-
-                      />
-                    </Stack>
-                    <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }} >
-
-                      <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">Categories</InputLabel>
-                        <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          value={FormProductData.category}
-                          label="Category"
-                          name='category'
-                          onChange={handleChange}
-                          required
-                        >
-
-                          {
-
-                            CateData.map((item, index) => (
-                              <MenuItem key={index} value={item._id}>{item.title}</MenuItem>
-                            ))
-                          }
-
-
-                        </Select>
-                      </FormControl>
-                      <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">Gender</InputLabel>
-                        <Select
-                          labelId="demo-simple-select-label"
-                          value={FormProductData.gender}
-                          id="demo-simple-select"
-                          onChange={handleChange}
-                          label="gender"
-                          name='gender'
-
-                        >
-                          <MenuItem value="1">Male</MenuItem>
-                          <MenuItem value="2">Female</MenuItem>
-                          <MenuItem value="3">Other</MenuItem>
-                        </Select>
-                      </FormControl>
-                      <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">Size</InputLabel>
-                        <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          value={FormProductData.size}
-                          onChange={handleChange}
-                          label="Size"
-                          name='size'
-
-                        >
-                          <MenuItem value='sm'>SM</MenuItem>
-                          <MenuItem value='m'>M</MenuItem>
-                          <MenuItem value='l'>L</MenuItem>
-                          <MenuItem value="xl">XL</MenuItem>
-                          <MenuItem value='xxl'>XXL</MenuItem>
-                        </Select>
-                      </FormControl>
-                    </Stack>
-
-
-                    <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
-                      <TextField
-                        type="text"
-                        variant='outlined'
                      
-                        onChange={handleChange}
-                        value={FormProductData.color}
-                        label="Color"
-                        name='color'
-                        fullWidth
-                        required
-                      />
-                      <TextField
-                        type="number"
-                        variant='outlined'
-                        onChange={handleChange}
-                     name='quantity'
-                        label="Quantity"
-                        fullWidth
-                        value={FormProductData.quantity}
 
-                      />
-                    </Stack>
+                          <div class="md:col-span-5 text-right">
+                            <div class="inline-flex items-end">
+                              <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Add product</button>
+                            </div>
+                          </div>
 
-                    <TextField
-                      type="text"
-                      name='product_desc'
-                      
-                      variant='outlined'
-                      onChange={handleChange}
-                      value={FormProductData.product_desc}
-                      label="Product Description"
-                      fullWidth
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-                    />
-
-                    <Stack sx={{ marginBottom: 4, marginTop: 5 }}>
-
-
-
-                      <Button
-                        component="label"
-                        role={undefined}
-                        variant="contained"
-                        tabIndex={-1}
-                        startIcon={<CloudUploadIcon />}
-                      >
-                        Product Image Upload
-                        <VisuallyHiddenInput type="file" onChange={handleFileChange} />
-                      </Button>
-                    </Stack>
-
-                    <Button variant="contained" style={{ backgroundColor: "#1565c0" }} type="submit">Submit</Button>
-                  </form>
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleClose}>Close</Button>
-
-              </DialogActions>
-            </Dialog>
-
-
-
+                <a href="https://www.buymeacoffee.com/dgauderman" target="_blank" class="md:absolute bottom-0 right-0 p-4 float-right">
+                  <img src="https://www.buymeacoffee.com/assets/img/guidelines/logo-mark-3.svg" alt="Buy Me A Coffee" class="transition-all rounded-full w-14 -rotate-45 hover:shadow-sm shadow-lg ring hover:ring-4 ring-white" />
+                </a>
+              </div>
+            </div>
           </div>
 
-          <div className='mt-2'>
-            {/* table here  */}
-
-            <table class="min-w-full border-collapse block md:table">
-              <thead class="block md:table-header-group">
-                <tr class="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto  md:relative ">
-                  <th class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">Id</th>
-                  <th class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">Product Name</th>
-                  <th class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">Price</th>
-                  <th class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">Category</th>
-                  <th class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">Size</th>
-                  <th class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">Color</th>
-                  <th class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">Gender</th>
-                  <th class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">Product Image</th>
-
-                  <th class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">Actions</th>
-                </tr>
-              </thead>
-              <tbody class="block md:table-row-group">
-
-
-                {
-
-                  Data.map((item, index) => (
-                    <tr class="bg-gray-300 border border-grey-500 md:border-none block md:table-row" key={index}>
-                      <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">id</span>{index + 1}</td>
-                      <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Name</span>{item.product_name}</td>
-                      <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Name</span>{item.product_price}</td>
-                      <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Name</span>{item.product_category}</td>
-                      {/* <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Name</span> {item.product_category ? (
-                        <span>{fetchCategoryName(item.product_category)}</span>
-                      ) : (
-                        <span>No Category</span>
-                      )}</td> */}
-                      <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Name</span>{item.sizes}</td>
-                      <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Name</span>{item.colors}</td>
-                      <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Name</span>{item.gender}</td>
-                      <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Mobile</span>
-                        <div class="relative inline-block shrink-0 rounded-2xl me-3">
-
-                          <Image src={item.product_Img} width={50} height={50} class="w-[50px] h-[50px] inline-block shrink-0 rounded-2xl" alt="" />
-                        </div></td>
-                      <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
-                        <span class="inline-block w-1/3 md:hidden font-bold">Actions</span>
-                        <Button variant="contained" style={{ backgroundColor: "#1b5e20" }} onClick={handleClickOpenEdit(item._id)}>Edit</Button>
-                        <Button variant="none" startIcon={<DeleteIcon />} sx={{ marginRight: "10px" }} ></Button>
-                      </td>
-                    </tr>
-                  ))
-                }
-
-
-              </tbody>
-            </table>
-
-          </div>
         </div>
 
 
       </div>
+
+
+
+
 
 
 

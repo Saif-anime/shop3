@@ -1,13 +1,21 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect , useContext} from 'react'
 import CustomSlider from '../../Components/CustomSlider';
 import Link from 'next/link';
 import Image from 'next/image';
+import { CartContext } from '../../context/CartContext';
+import { ToastContainer } from 'react-toastify';
+
+
+
+
 const Page = ({ params }) => {
   const [Data, setData] = useState([]);
+  const {addToCart} = useContext(CartContext)
 
 
+  console.log(Data)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -15,8 +23,10 @@ const Page = ({ params }) => {
         const response = await fetch(`${process.env.API_FETCH_URL}/Admin/product/${params.slug}`);
         if (response.ok) {
           const jsonData = await response.json();
+          const response_cate = await  fetch(`${process.env.API_FETCH_URL}/Admin/subcategory/${jsonData[0].product_category}`);
+          const jsonCateData = await response_cate.json();
           setData(jsonData);
-          console.log(jsonData);
+          console.log(jsonCateData);
         } else {
           console.error('Failed to fetch data');
         }
@@ -36,6 +46,9 @@ const Page = ({ params }) => {
 
   return (
     <>
+
+
+    <div className='container m-auto'>
 
       {
         Data.map(item => (
@@ -83,7 +96,7 @@ const Page = ({ params }) => {
                       </a>
                     </span>
                   </div>
-                  <p className="leading-relaxed">Fam locavore kickstarter distillery. Mixtape chillwave tumeric sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean shorts keytar banjo tattooed umami cardigan.</p>
+                  <p className="leading-relaxed">{item.product_desc}</p>
                   <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
                     <div className="flex">
                       <span className="mr-3">Color</span>
@@ -109,9 +122,11 @@ const Page = ({ params }) => {
                     </div>
                   </div>
                   <div className="flex">
-                    <span className="title-font font-medium text-2xl text-gray-900">$58.00</span>
-                    <button className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">Add to Cart</button>
-                    <Link href="/Checkout" className="flex ml-5 text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">Check Out</Link>
+                    <span className="title-font font-medium text-2xl text-gray-900">${item.product_price}</span>
+                    <a onClick={() => addToCart(item)}
+                            className="text-white ml-6 cursor-pointer bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Add
+                            to cart</a>
+                    
                   </div>
                 </div>
               </div>
@@ -136,7 +151,7 @@ const Page = ({ params }) => {
 
           <section className="text-gray-600 body-font">
             <div className="container px-5  mx-auto">
-              <CustomSlider />
+              <CustomSlider  addToCart={addToCart} />
 
             </div>
           </section>
@@ -144,6 +159,11 @@ const Page = ({ params }) => {
         </div>
       </section>
 
+
+
+
+      <ToastContainer />
+      </div>
     </>
   )
 }
