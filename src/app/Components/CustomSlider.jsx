@@ -13,10 +13,9 @@ import Card from './Card';
 
 const CustomSlider = ({addToCart, cateid}) => {
     const [Data, setData] = useState([]);
-    const [subCateData, setsubCateData] = useState([]);
 
+console.log(Data)
 
-  
 
     useEffect(() => {
       fetchData();
@@ -29,11 +28,9 @@ const CustomSlider = ({addToCart, cateid}) => {
     const fetchData = async () => {
       try {
         const response = await fetch(`${process.env.API_FETCH_URL}/Admin/product`);
-        const sub_response = await fetch(`${process.env.API_FETCH_URL}/Admin/subcategory`);
-        if (response.ok && sub_response.ok) {
+ 
+        if (response.ok ) {
           const jsonData = await response.json();
-          const jsonSubData = await sub_response.json();
-          setsubCateData(jsonSubData);
           setData(jsonData);
         } else {
           console.error('Failed to fetch data')
@@ -43,18 +40,19 @@ const CustomSlider = ({addToCart, cateid}) => {
         console.log(error)
       }
     }
-  
 
 
-    // Filter products based on category and subcategory
-    const filteredsubcategory = subCateData.filter(item => {
-      return item.category === cateid;
-  });
-
-
-  const filterproducts = Data.filter(item => {
-    return filteredsubcategory.some(subcategory => subcategory._id === item.product_category);
-  })
+    
+    
+    
+ 
+    
+    
+    const filterproducts = Data.filter(item => {
+      return item.product_category == cateid;
+    })
+    
+    console.log(filterproducts)
 
 
 
@@ -114,8 +112,13 @@ const CustomSlider = ({addToCart, cateid}) => {
           ))
 
 
+          
+
+
 
         }
+
+
 
                
               

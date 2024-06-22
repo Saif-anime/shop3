@@ -12,7 +12,7 @@ const Page = () => {
 
     let total = 0;
     cartData.map((data) => {
-        total += data.product_price * data.quantity
+        total += data.Online_price * data.quantity
 
         // console.log(data.product_price* data.quantity)
 

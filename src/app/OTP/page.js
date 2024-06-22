@@ -112,6 +112,7 @@ function HomeContent() {
               width={250}
               src="https://storage.googleapis.com/prod-phoneemail-prof-images/phem-widgets/phe-signin-box.svg"
               alt="phone email login demo"
+              height={250}
             />
             <h1 style={{ margin: "10px" }}>Sign In</h1>
             <p style={{ color: "#a6a6a6" }}>Welcome to Sign In with Phone</p>

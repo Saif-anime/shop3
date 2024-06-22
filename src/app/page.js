@@ -80,15 +80,22 @@ const Page = () => {
                 <CustomSlider addToCart={addToCart} cateid={item._id}/>
 
               </div>
-{/* 
-              <Link href={`/product/${item._id}`}
-                className="flex justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
-              >
+
+
+              <div className='mt-10 flex justify-center'>
+
+                <Link href={`/product/${item._id}`} class="inline items-center justify-center rounded-md bg-red-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300">
+                            
                 View More
-              </Link> */}
+                </Link>
+                </div>
+
+
+              
             </section>
 
           </div>
+          
         </section>
   ))
 }

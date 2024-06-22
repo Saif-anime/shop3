@@ -48,11 +48,11 @@ const Page = () => {
                             {
                                 cartData.map(item => (
                                     <div className="flex flex-col rounded-lg bg-white sm:flex-row" key={item._id}>
-                                        <Image width={40} height={40} className="m-2 h-24 w-28 rounded-md border object-cover object-center" src={item.product_Img} alt="" />
+                                        <Image width={40} height={40} className="m-2 h-24 w-28 rounded-md border object-cover object-center" src={item.product_Img[0].product_Img} alt="" />
                                         <div className="flex w-full flex-col px-4 py-4">
                                             <span className="font-semibold">{item.product_name}</span>
                                             <span className="float-right font-bold text-red-800">Quantity   {item.quantity}</span>
-                                            <p className="text-lg font-bold">${item.product_price}</p>
+                                            <p className="text-lg font-bold">${item.Online_price}</p>
                                         </div>
                                     </div>
                                 ))
